@@ -24,6 +24,16 @@ def scanForVuln(url):
 	url.replace("http://","")
 	url.replace("https://","")
 
+    #simple check if url/ip is valid or not
+    try:
+			ip = socket.gethostbyname(url)
+			s = socket.socket()
+			s.connect((ip,GIT_PORT))
+
+		except socket.gaierror as error:
+			return
+
+
 	#expecting .git/HEAD will be readble if the website is under git directory
     fullUrlSecure = "https://{0}/.git/HEAD".format(url)
 	fullUrl = "http://{0}/.git/HEAD".format(url)
@@ -59,5 +69,5 @@ def main():
 		return
 	else:
 		filename = sys.argv[1]
-		url_list = read_file(filename)
-		git_hosted_directory = git_directory_hosted(url_list)
+		urlList = read_file(filename)
+		scanForVuln(urlList)
