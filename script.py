@@ -13,7 +13,7 @@ def readFile(filename):
 		urlList = open(filename, 'r')
 		return urlList
 	except IOError:
-		print("Could not read file:", filename)
+		logging.error(" Could not read file:{0}".format(filename))
 		sys.exit()
 	return
 
@@ -30,7 +30,8 @@ def scanForVuln(url):
 	try:
 		httpsResponse = httpsRequest.request('GET', fullUrl, headers=agent, timeout=timeout)
 	except e as Error:
-		print e
+		logging.error("Unable to fufill request for url {0}".format(url))
+		return
 
 	print("TESTING: {0}".format(fullUrl))
 	if (httpsResponse.data == "ref: refs/heads/master\n"):
