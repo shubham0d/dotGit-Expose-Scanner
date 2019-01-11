@@ -33,7 +33,7 @@ def scanForVuln(url):
 		logging.error("Unable to fufill request for url {0}".format(url))
 		return
 
-	print("TESTING: {0}".format(fullUrl))
+	print("\033[91mTESTING: {0}\033[0m".format(fullUrl))
 	if (httpsResponse.data == "ref: refs/heads/master\n"):
 		print ".git is Exposed for url {0}".format(url)
 		print "---------------------------"
@@ -55,7 +55,7 @@ def findGitHosting(urlList):
 
 def main():
 	if(len(sys.argv)!=2):
-		print("Usage python git.py <filename>")
+		print("Usage python script.py <filename>")
 		return
 	else:
 		filename = sys.argv[1]
